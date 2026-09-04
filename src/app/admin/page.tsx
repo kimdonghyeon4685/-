@@ -26,14 +26,14 @@ export default function AdminPage() {
       <div className="container admin-container">
         <section className="page-heading page-heading--split">
           <div>
-            <p className="eyebrow">ADMIN CONSOLE · PROTOTYPE</p>
+            <p className="eyebrow">운영 화면 · 체험판</p>
             <h1>운영 준비 현황</h1>
             <p>
               Phase 1에서는 DEMO 데이터셋과 테스트 결제 흐름을 확인합니다. 데이터 업로드,
               사용자 관리, 환불 및 통계 기능은 Phase 2 연동 대상입니다.
             </p>
           </div>
-          <span className="prototype-label">READ-ONLY MOCK</span>
+          <span className="prototype-label">읽기 전용</span>
         </section>
 
         <div className="admin-stats">
@@ -68,10 +68,10 @@ export default function AdminPage() {
         <section className="admin-panel">
           <header>
             <div>
-              <p className="eyebrow">INTEGRATION ROADMAP</p>
+              <p className="eyebrow">상용화 준비 항목</p>
               <h2>Production 전환 체크포인트</h2>
             </div>
-            <span>PHASE 2</span>
+            <span>2단계</span>
           </header>
           <div className="admin-roadmap">
             <article>

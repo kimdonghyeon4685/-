@@ -24,8 +24,8 @@ export default function GuidePage() {
     <div className="page-shell guide-page">
       <div className="container guide-container">
         <section className="page-heading guide-heading">
-          <p className="eyebrow">SERVICE GUIDE · RESEARCH NOTES</p>
-          <h1>기록을 찾기 전에<br />꼭 확인해 주세요.</h1>
+          <p className="eyebrow">서비스 이용안내</p>
+          <h1>기록을 찾기 전에 꼭 확인해 주세요.</h1>
           <p>
             조상토지기록은 과거 조사 기록의 성명 색인을 검색하고, 필요한 개별 기록만
             선택해 상세정보를 확인하는 서비스입니다. 현재 버전은 사용자 경험 검증을 위한
@@ -45,7 +45,7 @@ export default function GuidePage() {
             <header>
               <span>01</span>
               <div>
-                <p className="eyebrow">SEARCH</p>
+                <p className="eyebrow">검색 방법</p>
                 <h2>성함 검색은 무료입니다.</h2>
               </div>
               <SearchIcon />
@@ -72,7 +72,7 @@ export default function GuidePage() {
             <header>
               <span>02</span>
               <div>
-                <p className="eyebrow">PAY PER RECORD</p>
+                <p className="eyebrow">기록별 결제</p>
                 <h2>선택한 기록 1건당 {formatCurrency(UNIT_PRICE)}</h2>
               </div>
               <FileTextIcon />
@@ -104,7 +104,7 @@ export default function GuidePage() {
             <header>
               <span>03</span>
               <div>
-                <p className="eyebrow">DATA BOUNDARY</p>
+                <p className="eyebrow">공개 정보 범위</p>
                 <h2>결제 전·후 정보 범위가 분리됩니다.</h2>
               </div>
               <ShieldIcon />
@@ -147,7 +147,7 @@ export default function GuidePage() {
             <header>
               <span>04</span>
               <div>
-                <p className="eyebrow">IMPORTANT NOTICE</p>
+                <p className="eyebrow">중요한 안내</p>
                 <h2>기록은 현재 권리상태를 보증하지 않습니다.</h2>
               </div>
               <ShieldIcon />
@@ -166,7 +166,7 @@ export default function GuidePage() {
 
         <section className="guide-cta">
           <div>
-            <p className="eyebrow">READY TO SEARCH</p>
+            <p className="eyebrow">검색 시작</p>
             <h2>이용 방식을 확인하셨나요?</h2>
             <p>
               {DEFAULT_SEARCH_NAME} 이름으로 준비된 {exampleRecordCount}건의 DEMO 검색 흐름을

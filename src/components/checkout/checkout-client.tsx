@@ -219,7 +219,7 @@ export function CheckoutClient() {
     return (
       <div className="empty-state empty-state--large">
         <ReceiptIcon />
-        <p className="eyebrow">EMPTY SELECTION</p>
+        <p className="eyebrow">선택한 기록 없음</p>
         <h1>선택한 기록이 없습니다.</h1>
         <p>검색 결과에서 열람할 기록을 체크한 뒤 다시 진행해 주세요.</p>
         <Link className="button button--primary" href="/search?name=김동현">
@@ -235,7 +235,7 @@ export function CheckoutClient() {
       <div className="checkout-layout">
         <section className="checkout-main" aria-labelledby="checkout-title">
           <div className="page-heading">
-            <p className="eyebrow">CHECKOUT · FINAL REVIEW</p>
+            <p className="eyebrow">결제 전 최종 확인</p>
             <h1 id="checkout-title">선택한 기록을 최종 확인해 주세요.</h1>
             <p>
               현재 화면에도 리·지번·면적 등의 상세정보는 전송되지 않았습니다.
@@ -322,8 +322,7 @@ export function CheckoutClient() {
         </section>
 
         <aside className="checkout-summary" aria-label="결제 요약">
-          <div className="checkout-summary__seal" aria-hidden="true">土</div>
-          <p className="eyebrow">ORDER SUMMARY</p>
+          <p className="eyebrow">결제 요약</p>
           <h2>열람료 결제 요약</h2>
           <dl>
             <div>
@@ -386,7 +385,7 @@ export function CheckoutClient() {
             <span className="confirm-modal__icon">
               <ShieldIcon />
             </span>
-            <p className="eyebrow">FINAL CONFIRMATION</p>
+            <p className="eyebrow">최종 확인</p>
             <h2 id="payment-confirm-title">테스트 결제를 진행할까요?</h2>
             <p id="payment-confirm-description">
               선택한 {formatNumber(selectedCount)}건에 대해서만 상세 열람 권한이 생성됩니다.

@@ -8,8 +8,8 @@ export function SiteFooter() {
         <div>
           <ArchiveMark compact />
           <p className="site-footer__description">
-            오래된 토지 기록을 현대적인 검색 경험으로 연결하는<br />
-            조상토지기록 검색 서비스 프로토타입입니다.
+            오래된 토지 기록을 현대적인 검색 경험으로 연결하는 조상토지기록 검색 서비스
+            프로토타입입니다.
           </p>
         </div>
         <div className="site-footer__links">
@@ -26,7 +26,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="container site-footer__bottom">
-        <span>© 2026 ANCESTRAL LAND RECORDS · PROTOTYPE</span>
+        <span>© 2026 조상토지기록 체험판</span>
         <span>본 서비스의 모든 기록은 DEMO 데이터입니다.</span>
       </div>
     </footer>

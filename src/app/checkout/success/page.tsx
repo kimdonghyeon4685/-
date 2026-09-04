@@ -21,7 +21,7 @@ export default async function CheckoutSuccessPage() {
         <div className="container narrow-page">
           <div className="empty-state empty-state--large">
             <ShieldIcon />
-            <p className="eyebrow">NO RECENT PURCHASE</p>
+            <p className="eyebrow">최근 결제 내역 없음</p>
             <h1>최근 테스트 결제 내역이 없습니다.</h1>
             <p>기록을 선택해 테스트 결제 흐름을 진행해 주세요.</p>
             <Link className="button button--primary" href="/search?name=김동현">
@@ -43,7 +43,7 @@ export default async function CheckoutSuccessPage() {
           <span className="success-hero__check">
             <CheckIcon />
           </span>
-          <p className="eyebrow">MOCK PAYMENT SUCCESS</p>
+          <p className="eyebrow">테스트 결제 완료</p>
           <h1>테스트 결제가 완료되었습니다.</h1>
           <p>
             선택한 기록의 서버 열람 권한이 생성되었습니다. 아래 기록에 한해 정확한

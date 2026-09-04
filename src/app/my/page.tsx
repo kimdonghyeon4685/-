@@ -20,7 +20,7 @@ export default async function MyRecordsPage() {
       <div className="container narrow-page">
         <section className="page-heading page-heading--split">
           <div>
-            <p className="eyebrow">MY RESEARCH ARCHIVE</p>
+            <p className="eyebrow">내 기록 보관함</p>
             <h1>내 열람 기록</h1>
             <p>
               이 브라우저의 DEMO 세션에서 테스트 결제를 완료한 기록을 다시 열람합니다.
@@ -28,7 +28,7 @@ export default async function MyRecordsPage() {
           </div>
           <div className="page-heading__metric">
             <strong>{state.unlockedRecordIds.length}</strong>
-            <span>UNLOCKED RECORDS</span>
+            <span>열람 가능한 기록</span>
           </div>
         </section>
 
@@ -45,7 +45,7 @@ export default async function MyRecordsPage() {
         ) : (
           <div className="empty-state empty-state--large">
             <ArchiveIcon />
-            <p className="eyebrow">EMPTY RESEARCH ARCHIVE</p>
+            <p className="eyebrow">보관된 기록 없음</p>
             <h2>아직 열람한 기록이 없습니다.</h2>
             <p>성함을 무료로 검색하고 관련 있어 보이는 기록만 선택해 보세요.</p>
             <Link className="button button--primary" href="/search?name=김동현">

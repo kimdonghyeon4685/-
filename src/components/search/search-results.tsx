@@ -99,11 +99,10 @@ export function SearchResults({ response }: { response: SearchResponse }) {
     <>
       <section className="search-summary" aria-labelledby="search-result-title">
         <div>
-          <p className="eyebrow">SEARCH RESULTS · PUBLIC INDEX</p>
+          <p className="eyebrow">기록 검색 결과</p>
           <h1 id="search-result-title">
-            <span>‘{response.query.name}’</span> 이름으로
-            <br />
-            총 {formatNumber(response.total)}건의 기록을 찾았습니다.
+            <span>‘{response.query.name}’</span> 이름으로 총 {formatNumber(response.total)}건의
+            기록을 찾았습니다.
           </h1>
           <p>
             아래에는 무료 공개 정보만 표시됩니다. 정확한 리·지번과 상세 토지정보는
@@ -112,8 +111,8 @@ export function SearchResults({ response }: { response: SearchResponse }) {
         </div>
         <div className="search-summary__stamp" aria-hidden="true">
           <strong>{formatNumber(response.total)}</strong>
-          <span>INDEXED RECORDS</span>
-          <small>DEMO ARCHIVE</small>
+          <span>검색된 기록</span>
+          <small>DEMO 자료</small>
         </div>
       </section>
 

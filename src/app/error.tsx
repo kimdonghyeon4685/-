@@ -19,7 +19,7 @@ export default function GlobalError({
       <div className="container narrow-page">
         <div className="empty-state empty-state--large">
           <ShieldIcon />
-          <p className="eyebrow">TEMPORARY ERROR</p>
+          <p className="eyebrow">일시적인 오류</p>
           <h1>요청을 처리하는 중 문제가 발생했습니다.</h1>
           <p>DEMO 세션을 확인한 뒤 다시 시도해 주세요.</p>
           <button className="button button--primary" onClick={reset} type="button">

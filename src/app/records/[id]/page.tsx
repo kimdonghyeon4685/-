@@ -62,7 +62,7 @@ export default async function RecordDetailPage({ params }: RecordPageProps) {
 
         <section className="record-detail-hero">
           <div>
-            <p className="eyebrow">LAND RECORD · DEMO ARCHIVE</p>
+            <p className="eyebrow">토지 기록 · DEMO 자료</p>
             <div className="record-detail-hero__badges">
               <span className="source-badge">{publicRecord.sourceType}</span>
               <span className={isUnlocked ? "access-badge access-badge--open" : "access-badge"}>
@@ -77,19 +77,15 @@ export default async function RecordDetailPage({ params }: RecordPageProps) {
               {publicRecord.recordYear ?? "연도 미상"}년 기록
             </p>
           </div>
-          <div className="record-detail-hero__seal" aria-hidden="true">
-            <span>模</span>
-            <small>DEMO</small>
-          </div>
         </section>
 
         <section className="record-public-card">
           <header>
             <div>
-              <ArchiveIcon />
-              <span>
-                <strong>무료 공개 색인정보</strong>
-                <small>PUBLIC INDEX FIELDS</small>
+                <ArchiveIcon />
+                <span>
+                  <strong>무료 공개 색인정보</strong>
+                  <small>무료 검색에서 확인 가능</small>
               </span>
             </div>
             <span>검색 단계 공개</span>
@@ -134,7 +130,7 @@ export default async function RecordDetailPage({ params }: RecordPageProps) {
                 <UnlockIcon />
                 <span>
                   <strong>결제 후 공개 상세정보</strong>
-                  <small>PURCHASED RECORD FIELDS</small>
+                  <small>선택한 기록의 결제 후 공개</small>
                 </span>
               </div>
               <span className="verified-label">
@@ -196,7 +192,7 @@ export default async function RecordDetailPage({ params }: RecordPageProps) {
               <LockIcon />
             </div>
             <div>
-              <p className="eyebrow">ENTITLEMENT REQUIRED</p>
+              <p className="eyebrow">결제 후 상세 열람 가능</p>
               <h2>정확한 리·지번과 상세정보는 아직 잠겨 있습니다.</h2>
               <p>
                 화면 뒤에 상세정보를 숨겨둔 것이 아닙니다. 구매 여부가 확인되기 전에는
