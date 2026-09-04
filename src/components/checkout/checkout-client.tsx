@@ -48,7 +48,10 @@ export function CheckoutClient() {
   const selectionKey = selectedIds.join("|");
   const hasCurrentRecordResponse =
     selectedIds.length === 0 || recordLoadState.selectionKey === selectionKey;
-  const records = hasCurrentRecordResponse ? recordLoadState.records : [];
+  const records = useMemo(
+    () => (hasCurrentRecordResponse ? recordLoadState.records : []),
+    [hasCurrentRecordResponse, recordLoadState.records],
+  );
   const isLoading = isReady && selectedIds.length > 0 && !hasCurrentRecordResponse;
   const error =
     paymentError || (hasCurrentRecordResponse ? recordLoadState.error : "");

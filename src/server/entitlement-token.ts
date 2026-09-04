@@ -17,7 +17,6 @@ type SessionReference = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var __ALR_DEMO_SESSION_STORE__: SessionStore | undefined;
 }
 
