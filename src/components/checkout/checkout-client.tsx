@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import type { ChangeEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { ChangeEvent, PointerEvent as ReactPointerEvent } from "react";
 import {
   ArrowRightIcon,
   CheckIcon,
@@ -44,6 +44,7 @@ export function CheckoutClient() {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [paymentError, setPaymentError] = useState("");
+  const confirmModalRef = useRef<HTMLElement>(null);
   const amountTotal = selectedCount * UNIT_PRICE;
   const selectionKey = selectedIds.join("|");
   const hasCurrentRecordResponse =
@@ -115,15 +116,62 @@ export function CheckoutClient() {
       return;
     }
 
+    const modal = confirmModalRef.current;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusTarget = modal?.querySelector<HTMLElement>(
+      "button:not(:disabled), a[href], input:not(:disabled), [tabindex]:not([tabindex='-1'])",
+    );
+    if (focusTarget) {
+      focusTarget.focus();
+    } else {
+      modal?.focus();
+    }
+
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape" && !isPaying) {
         setIsConfirmOpen(false);
       }
+
+      if (event.key !== "Tab" || !modal) {
+        return;
+      }
+
+      const focusable = Array.from(
+        modal.querySelectorAll<HTMLElement>(
+          "button:not(:disabled), a[href], input:not(:disabled), [tabindex]:not([tabindex='-1'])",
+        ),
+      );
+      const first = focusable[0];
+      const last = focusable.at(-1);
+
+      if (!first || !last) {
+        event.preventDefault();
+        modal.focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
+    };
   }, [isConfirmOpen, isPaying]);
+
+  function handleBackdropPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.target === event.currentTarget && !isPaying) {
+      setIsConfirmOpen(false);
+    }
+  }
 
   const orderedRecords = useMemo(() => {
     const byId = new Map(records.map((record) => [record.id, record]));
@@ -191,11 +239,15 @@ export function CheckoutClient() {
             <h1 id="checkout-title">선택한 기록을 최종 확인해 주세요.</h1>
             <p>
               현재 화면에도 리·지번·면적 등의 상세정보는 전송되지 않았습니다.
-              테스트 결제가 완료된 record_id만 서버 권한에 추가됩니다.
+              테스트 결제가 완료된 기록에 대해서만 상세 열람 권한이 생성됩니다.
             </p>
           </div>
 
-          {error ? <div className="alert alert--error">{error}</div> : null}
+          {error ? (
+            <div className="alert alert--error" role="alert">
+              {error}
+            </div>
+          ) : null}
 
           <div className="checkout-records">
             <div className="checkout-records__header">
@@ -299,21 +351,28 @@ export function CheckoutClient() {
           <div className="checkout-summary__security">
             <ShieldIcon />
             <p>
-              <strong>서버 권한 검증 구조</strong>
-              상세정보는 결제 성공 후 서버가 구매 권한을 확인한 요청에만 반환합니다.
+              <strong>구매한 기록만 공개</strong>
+              상세정보는 결제가 끝난 뒤 구매 여부가 확인된 기록에만 제공됩니다.
             </p>
           </div>
         </aside>
       </div>
 
       {isConfirmOpen ? (
-        <div className="modal-backdrop" role="presentation">
+        <div
+          className="modal-backdrop"
+          onPointerDown={handleBackdropPointerDown}
+          role="presentation"
+        >
           <section
             aria-describedby="payment-confirm-description"
+            aria-busy={isPaying}
             aria-labelledby="payment-confirm-title"
             aria-modal="true"
             className="confirm-modal"
+            ref={confirmModalRef}
             role="dialog"
+            tabIndex={-1}
           >
             <button
               aria-label="확인 창 닫기"
@@ -330,8 +389,7 @@ export function CheckoutClient() {
             <p className="eyebrow">FINAL CONFIRMATION</p>
             <h2 id="payment-confirm-title">테스트 결제를 진행할까요?</h2>
             <p id="payment-confirm-description">
-              선택한 {formatNumber(selectedCount)}건의 record_id에 대해서만 상세 열람 권한이
-              생성됩니다.
+              선택한 {formatNumber(selectedCount)}건에 대해서만 상세 열람 권한이 생성됩니다.
             </p>
             <div className="confirm-modal__amount">
               <span>선택 {formatNumber(selectedCount)}건</span>

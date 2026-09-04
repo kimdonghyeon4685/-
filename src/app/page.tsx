@@ -58,8 +58,8 @@ export default function HomePage() {
             <div className="hero-search-card__footnote">
               <ShieldIcon />
               <p>
-                검색 단계에서는 기록번호와 대략 지역만 공개됩니다.
-                <strong>정확한 리·지번은 결제 전 서버 응답에 포함되지 않습니다.</strong>
+                무료 검색에서는 기록번호와 대략 지역만 확인할 수 있습니다.
+                <strong>정확한 리·지번은 선택한 기록의 결제가 끝난 뒤에만 열립니다.</strong>
               </p>
             </div>
           </div>
@@ -77,6 +77,49 @@ export default function HomePage() {
               <strong>{stats.sourceTypes}</strong>
               <span>SOURCE TYPES</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--scope">
+        <div className="container research-scope">
+          <div className="research-scope__heading">
+            <p className="eyebrow">RESEARCH BOUNDARY</p>
+            <h2>이름이 같다는 사실은 단서이지,<br />권리의 증명은 아닙니다.</h2>
+            <p>
+              이 서비스는 흩어진 역사 기록에서 조사할 후보를 빠르게 찾는 출발점입니다.
+              동일인 여부와 현재 권리관계는 관련 원문과 공적 장부를 별도로 확인해야 합니다.
+            </p>
+            <Link className="text-link" href="/guide#notice">
+              자료 이용 주의사항 확인
+              <ArrowRightIcon />
+            </Link>
+          </div>
+          <div className="research-scope__cards">
+            <article>
+              <span className="research-scope__icon">
+                <ArchiveIcon />
+              </span>
+              <p>이 검색으로 확인하는 것</p>
+              <h3>당시 기록에 남은 이름과 지역 단서</h3>
+              <ul>
+                <li><CheckIcon /> 기록번호와 성명 색인</li>
+                <li><CheckIcon /> 도·군·면 단위의 대략 지역</li>
+                <li><CheckIcon /> 자료구분과 기록연도</li>
+              </ul>
+            </article>
+            <article className="research-scope__card--caution">
+              <span className="research-scope__icon">
+                <ShieldIcon />
+              </span>
+              <p>별도 확인이 필요한 것</p>
+              <h3>동일인·상속관계와 현재 소유권</h3>
+              <ul>
+                <li>동명이인 여부와 가족관계</li>
+                <li>행정구역 변경 및 지번 변동</li>
+                <li>현재 소유권과 기타 권리상태</li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
@@ -112,7 +155,7 @@ export default function HomePage() {
                 <UnlockIcon />
               </div>
               <h3>결제한 기록만 공개</h3>
-              <p>테스트 결제 완료 후 해당 record_id의 리·지번·상세정보만 열립니다.</p>
+              <p>테스트 결제 완료 후 선택한 기록의 리·지번·상세정보만 열립니다.</p>
             </article>
           </div>
           <div className="pricing-equation" aria-label="기록별 가격 예시">
@@ -167,8 +210,8 @@ export default function HomePage() {
               <li>
                 <ShieldIcon />
                 <span>
-                  <strong>상세정보 서버 분리</strong>
-                  CSS blur가 아니라 구매 권한 전에는 상세 필드를 응답하지 않습니다.
+                  <strong>구매 전 상세정보 미전달</strong>
+                  화면에 흐리게 가려두는 방식이 아니라 구매 전에는 상세정보를 전달하지 않습니다.
                 </span>
               </li>
             </ul>

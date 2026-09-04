@@ -8,8 +8,9 @@ import {
   ShieldIcon,
   UnlockIcon,
 } from "@/components/icons";
-import { UNIT_PRICE } from "@/lib/constants";
+import { DEFAULT_SEARCH_NAME, UNIT_PRICE } from "@/lib/constants";
 import { formatCurrency } from "@/lib/format";
+import { searchPublicRecords } from "@/server/record-repository";
 
 export const metadata: Metadata = {
   title: "이용안내",
@@ -17,6 +18,8 @@ export const metadata: Metadata = {
 };
 
 export default function GuidePage() {
+  const exampleRecordCount = searchPublicRecords({ name: DEFAULT_SEARCH_NAME }).total;
+
   return (
     <div className="page-shell guide-page">
       <div className="container guide-container">
@@ -55,6 +58,14 @@ export default function GuidePage() {
               <strong>무료 검색에서 확인 가능한 항목</strong>
               <span>기록번호 · 성명 · 도 · 군 · 면 · 자료구분 · 기록연도</span>
             </div>
+            <div className="research-checklist">
+              <strong>기록을 고를 때 비교할 순서</strong>
+              <ol>
+                <li><span>1</span>조상이 생활했던 도·군·면과 일치하는지 확인</li>
+                <li><span>2</span>기록연도와 자료구분으로 후보 범위를 축소</li>
+                <li><span>3</span>동명이인을 고려해 관련 가능성이 높은 기록만 선택</li>
+              </ol>
+            </div>
           </section>
 
           <section id="pricing">
@@ -74,17 +85,17 @@ export default function GuidePage() {
               <div role="row">
                 <span role="cell">1건 선택</span>
                 <span role="cell">× {formatCurrency(UNIT_PRICE)}</span>
-                <strong role="cell">{formatCurrency(20_000)}</strong>
+                <strong role="cell">{formatCurrency(UNIT_PRICE)}</strong>
               </div>
               <div role="row">
                 <span role="cell">2건 선택</span>
                 <span role="cell">× {formatCurrency(UNIT_PRICE)}</span>
-                <strong role="cell">{formatCurrency(40_000)}</strong>
+                <strong role="cell">{formatCurrency(UNIT_PRICE * 2)}</strong>
               </div>
               <div role="row">
                 <span role="cell">3건 선택</span>
                 <span role="cell">× {formatCurrency(UNIT_PRICE)}</span>
-                <strong role="cell">{formatCurrency(60_000)}</strong>
+                <strong role="cell">{formatCurrency(UNIT_PRICE * 3)}</strong>
               </div>
             </div>
           </section>
@@ -99,9 +110,8 @@ export default function GuidePage() {
               <ShieldIcon />
             </header>
             <p>
-              결제 전 상세정보를 CSS blur나 화면 마스킹으로만 숨기지 않습니다. 무료 응답에는
-              상세 필드가 포함되지 않으며, 결제한 record_id에 대해서만 서버가 권한을 확인한
-              뒤 별도의 상세 응답을 제공합니다.
+              상세정보를 화면 뒤에 흐리게 숨겨두지 않습니다. 무료 검색에는 상세 필드 자체가
+              포함되지 않으며, 결제한 기록에 대해서만 구매 여부를 확인한 뒤 별도로 공개합니다.
             </p>
             <div className="field-comparison">
               <article>
@@ -158,9 +168,15 @@ export default function GuidePage() {
           <div>
             <p className="eyebrow">READY TO SEARCH</p>
             <h2>이용 방식을 확인하셨나요?</h2>
-            <p>김동현 이름으로 준비된 113건의 DEMO 검색 흐름을 바로 확인할 수 있습니다.</p>
+            <p>
+              {DEFAULT_SEARCH_NAME} 이름으로 준비된 {exampleRecordCount}건의 DEMO 검색 흐름을
+              바로 확인할 수 있습니다.
+            </p>
           </div>
-          <Link className="button button--light" href="/search?name=김동현">
+          <Link
+            className="button button--light"
+            href={`/search?name=${encodeURIComponent(DEFAULT_SEARCH_NAME)}`}
+          >
             무료 검색 시작
             <ArrowRightIcon />
           </Link>

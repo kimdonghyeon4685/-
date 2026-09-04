@@ -10,6 +10,7 @@ import {
   ShieldIcon,
   UnlockIcon,
 } from "@/components/icons";
+import { RecordSelectionAction } from "@/components/records/record-selection-action";
 import { formatCurrency } from "@/lib/format";
 import { UNIT_PRICE } from "@/lib/constants";
 import { getCurrentEntitlementState } from "@/server/current-entitlements";
@@ -198,8 +199,8 @@ export default async function RecordDetailPage({ params }: RecordPageProps) {
               <p className="eyebrow">ENTITLEMENT REQUIRED</p>
               <h2>정확한 리·지번과 상세정보는 아직 잠겨 있습니다.</h2>
               <p>
-                이 페이지에는 상세 필드를 CSS로 가려 놓은 것이 아닙니다. 서버가 열람 권한을
-                확인하기 전에는 상세 데이터 자체를 조회하거나 응답하지 않습니다.
+                화면 뒤에 상세정보를 숨겨둔 것이 아닙니다. 구매 여부가 확인되기 전에는
+                상세 데이터 자체가 이 페이지에 전달되지 않습니다.
               </p>
               <div className="locked-detail-card__fields">
                 <span>리</span>
@@ -209,13 +210,7 @@ export default async function RecordDetailPage({ params }: RecordPageProps) {
                 <span>출처 식별정보</span>
               </div>
               <div className="locked-detail-card__actions">
-                <Link
-                  className="button button--primary"
-                  href={`/search?name=${encodeURIComponent(publicRecord.name)}`}
-                >
-                  검색결과에서 기록 선택
-                  <ArrowRightIcon />
-                </Link>
+                <RecordSelectionAction recordId={publicRecord.id} />
                 <span>기록 1건 열람료 {formatCurrency(UNIT_PRICE)}</span>
               </div>
             </div>

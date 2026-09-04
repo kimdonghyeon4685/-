@@ -6,8 +6,12 @@ import {
   SearchIcon,
   ShieldIcon,
 } from "@/components/icons";
+import { DEFAULT_SEARCH_NAME } from "@/lib/constants";
 import { formatNumber } from "@/lib/format";
-import { getDemoDatasetStats } from "@/server/record-repository";
+import {
+  getDemoDatasetStats,
+  searchPublicRecords,
+} from "@/server/record-repository";
 
 export const metadata: Metadata = {
   title: "관리자 프로토타입",
@@ -15,6 +19,7 @@ export const metadata: Metadata = {
 
 export default function AdminPage() {
   const stats = getDemoDatasetStats();
+  const exampleRecordCount = searchPublicRecords({ name: DEFAULT_SEARCH_NAME }).total;
 
   return (
     <div className="page-shell admin-page">
@@ -42,7 +47,9 @@ export default function AdminPage() {
             <SearchIcon />
             <span>색인 성명</span>
             <strong>{stats.uniqueNames}</strong>
-            <small>김동현 113건 포함</small>
+            <small>
+              {DEFAULT_SEARCH_NAME} {formatNumber(exampleRecordCount)}건 포함
+            </small>
           </article>
           <article>
             <FileTextIcon />

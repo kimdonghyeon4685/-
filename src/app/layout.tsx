@@ -29,12 +29,17 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="ko">
+    <html data-scroll-behavior="smooth" lang="ko">
       <body>
+        <a className="skip-link" href="#main-content">
+          본문으로 바로가기
+        </a>
         <SelectionProvider>
           <DemoBanner />
           <SiteHeader />
-          <main>{children}</main>
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
           <SiteFooter />
         </SelectionProvider>
       </body>

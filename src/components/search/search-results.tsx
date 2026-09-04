@@ -79,9 +79,6 @@ export function SearchResults({ response }: { response: SearchResponse }) {
   const filteredSelectedCount = response.matchingRecordIds.filter((id) =>
     selectedSet.has(id),
   ).length;
-  const allFilteredSelected =
-    response.matchingRecordIds.length > 0 &&
-    filteredSelectedCount === response.matchingRecordIds.length;
   const allPageSelected =
     currentPageIds.length > 0 && currentPageSelectedCount === currentPageIds.length;
   const selectedAmount = selectedCount * UNIT_PRICE;
@@ -132,6 +129,7 @@ export function SearchResults({ response }: { response: SearchResponse }) {
         </div>
         <div className="filter-chips">
           <Link
+            aria-current={!response.query.province ? "page" : undefined}
             className={!response.query.province ? "is-active" : ""}
             href={createSearchHref(response.query.name, "")}
           >
@@ -144,6 +142,9 @@ export function SearchResults({ response }: { response: SearchResponse }) {
           </Link>
           {response.provinceCounts.map((item) => (
             <Link
+              aria-current={
+                response.query.province === item.province ? "page" : undefined
+              }
               className={response.query.province === item.province ? "is-active" : ""}
               href={createSearchHref(response.query.name, item.province)}
               key={item.province}
@@ -162,7 +163,10 @@ export function SearchResults({ response }: { response: SearchResponse }) {
               {response.query.province || "전국"} · {formatNumber(response.total)}건
             </strong>
             <span>
-              현재 조건에서 {formatNumber(filteredSelectedCount)}건 선택됨
+              현재 조건 {formatNumber(filteredSelectedCount)}건 선택
+              {selectedCount !== filteredSelectedCount
+                ? ` · 다른 검색 포함 총 ${formatNumber(selectedCount)}건`
+                : ""}
             </span>
           </div>
           <div className="records-toolbar__actions">
@@ -172,19 +176,20 @@ export function SearchResults({ response }: { response: SearchResponse }) {
                 전체 선택 해제
               </button>
             ) : null}
-            {response.matchingRecordIds.length > 0 ? (
+            {currentPageIds.length > 0 ? (
               <button
+                aria-pressed={allPageSelected}
                 className="button button--secondary button--small"
                 onClick={() =>
-                  allFilteredSelected
-                    ? deselectMany(response.matchingRecordIds)
-                    : selectMany(response.matchingRecordIds)
+                  allPageSelected
+                    ? deselectMany(currentPageIds)
+                    : selectMany(currentPageIds)
                 }
                 type="button"
               >
-                {allFilteredSelected
-                  ? "현재 검색결과 선택 해제"
-                  : `검색결과 ${formatNumber(response.total)}건 전체 선택`}
+                {allPageSelected
+                  ? "이 페이지 선택 해제"
+                  : `이 페이지 ${formatNumber(currentPageIds.length)}건 선택`}
               </button>
             ) : null}
           </div>
@@ -365,14 +370,19 @@ export function SearchResults({ response }: { response: SearchResponse }) {
       </section>
 
       <div className="selection-spacer" aria-hidden="true" />
-      <aside className="selection-bar" aria-live="polite">
+      <aside className="selection-bar">
         <div className="container selection-bar__inner">
-          <div className="selection-bar__summary">
-            <span>선택한 기록</span>
-            <strong>{isReady ? formatNumber(selectedCount) : "—"}건</strong>
+          <div className="selection-bar__summary" aria-live="polite" role="status">
+            <div>
+              <span>선택한 기록</span>
+              <strong>{isReady ? formatNumber(selectedCount) : "—"}건</strong>
+            </div>
             <i aria-hidden="true" />
-            <span>총 결제금액</span>
-            <strong>{isReady ? formatCurrency(selectedAmount) : "—"}</strong>
+            <div>
+              <span>예상 열람료</span>
+              <strong>{isReady ? formatCurrency(selectedAmount) : "—"}</strong>
+              <small>1건당 {formatCurrency(UNIT_PRICE)}</small>
+            </div>
           </div>
           {isReady && selectedCount > 0 ? (
             <Link className="button button--primary selection-bar__cta" href="/checkout">
