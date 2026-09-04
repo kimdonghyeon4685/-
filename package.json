@@ -1,0 +1,31 @@
+{
+  "name": "ancestral-land-records",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PRD 기반 조상토지기록 검색 서비스 프로토타입",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20.9.0",
+    "npm": ">=10.0.0"
+  },
+  "dependencies": {
+    "next": "16.3.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.3.4",
+    "typescript": "^5.9.0"
+  }
+}
